@@ -1,0 +1,15 @@
+<resources>
+    <string name="app_name">ToDo</string>
+
+
+    <!-- ####### Login ###### -->
+    <string name="login">Login</string>
+    <string name="name">Name</string>
+    <string name="password">Password</string>
+
+    <!-- ####### Add User ###### -->
+    <string name="create">Create</string>
+
+
+
+</resources>
