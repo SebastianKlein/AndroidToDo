@@ -42,9 +42,11 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 String newPasswordVerify = etNewPasswordVerify.getText().toString().trim();
 
                 if (currentUser.getPassword().equals(oldPassword) &&  // old passwords match
-                        etNewPassword.getText().toString().trim().equals(newPasswordVerify) && // new passwords match
                         check_values(newPassword, newPasswordVerify)) { // new password follows rules
                     currentUser.setPassword(newPassword);
+                    dataSource.open();
+                    dataSource.updateUser(currentUser);
+                    dataSource.close();
                 }
             }
         });
@@ -57,6 +59,9 @@ public class AccountSettingsActivity extends AppCompatActivity {
                 }
             }
         });
+
+        // TODO: delete user
+
     }
 
     private void addUser() {
