@@ -52,7 +52,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
         bAddAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentUser.getPassword() == 0) {
+                if (currentUser.getId() == 0) {
                     addUser();
                 }
             }
