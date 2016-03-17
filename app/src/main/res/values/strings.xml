@@ -9,7 +9,22 @@
 
     <!-- ####### Add User ###### -->
     <string name="create">Create</string>
+    <string name="title_activity_todo_list">todo_list</string>
+    <string name="title_activity_add_entry">add_entry</string>
 
+    <!-- ####### ToDoList ###### -->
+    <string name="note">...</string>
+    <string name="add">ADD</string>
+    <string name="cancel">CANCEL</string>
+    <string name="deadline">Deadline</string>
+    <string name="important">important</string>
+    <string name="done">done</string>
+    <string name="acc_settings">account settings</string>
 
-
+    <!-- ####### AccountSettings ###### -->
+    <string name="add_account">add another account</string>
+    <string name="change_password">change password</string>
+    <string name="current_password">current password</string>
+    <string name="new_password">new password</string>
+    <string name="title_activity_account_settings">Account Settings</string>
 </resources>

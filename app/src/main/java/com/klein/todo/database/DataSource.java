@@ -86,7 +86,7 @@ public class DataSource {
         Note entry = new Note(cursor.getLong(0),    //ID
                 cursor.getString(1),                //Name
                 cursor.getString(2),                //Description
-                cursor.getString(3),                //Timestampe
+                cursor.getString(3),                //Timestamp
                 (cursor.getInt(4) == 1),            //Important
                 (cursor.getInt(5) == 1),            //Done
                 cursor.getLong(6));                 //Done
@@ -100,7 +100,7 @@ public class DataSource {
         values.put("TIMESTAMP", entry.getTimestamp());
         values.put("IMPORTANT", entry.getImportant());
         values.put("DONE", entry.getDone());
-        values.put("USERID", entry.getUserId());
+        values.put("USER_ID", entry.getUserId());
 
         database.insert("NOTE", null, values);
     }
@@ -127,4 +127,4 @@ public class DataSource {
 
         return noteList;
     }
-}
+  }
