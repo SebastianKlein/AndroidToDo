@@ -25,6 +25,14 @@ public class Note implements Parcelable {
         this.userId = userId;
     }
 
+    public void update(String name, String description, String timestamp, boolean important, boolean done){
+        this.name = name;
+        this.description = description;
+        this.timestamp = timestamp;
+        this.important = important;
+        this.done = done;
+    }
+
     public long getId(){
         return this.id;
     }

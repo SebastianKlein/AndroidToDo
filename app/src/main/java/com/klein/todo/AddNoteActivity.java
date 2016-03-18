@@ -27,6 +27,7 @@ public class AddNoteActivity extends AppCompatActivity {
     private boolean done = false;
 
     private User currentUser;
+    Note noteEntry;
 
     public void onCheckboxClicked(View view) {
         done = cbDone.isChecked();
@@ -40,7 +41,8 @@ public class AddNoteActivity extends AppCompatActivity {
         dataSource = new DataSource(this);
 
         Intent getIntent = getIntent();
-        currentUser = (User) getIntent.getParcelableExtra("User");
+        currentUser = (User) getIntent.getParcelableExtra("CurrentUser");
+        noteEntry = (Note) getIntent.getParcelableExtra("CurrentNote");
 
         etName = (EditText) findViewById(R.id.etName);
         etNote = (EditText) findViewById(R.id.etNote);
@@ -49,6 +51,16 @@ public class AddNoteActivity extends AppCompatActivity {
         cbDone = (CheckBox) findViewById(R.id.cbDone);
         bCreate = (Button) findViewById(R.id.bCreate);
         bCancel = (Button) findViewById(R.id.bCancel);
+
+
+        if (noteEntry != null) {
+            etName.setText(noteEntry.getName());
+            etNote.setText(noteEntry.getDescription());
+            //TODO timestamp
+            cbImportant.setChecked(noteEntry.getImportant());
+            cbDone.setChecked(noteEntry.getImportant());
+        }
+
 
         bCancel.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -62,18 +74,33 @@ public class AddNoteActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
                 dataSource.open();
-                List<Note> noteList = dataSource.getAllNotesFromUserByUserId(currentUser.getId());
-                Note noteEntry = new Note(new Long(noteList.size()),
-                        etName.getText().toString().trim(),
-                        etNote.getText().toString().trim(),
-                        etDeadline.getText().toString().trim(),
-                        done,
-                        important,
-                        currentUser.getId()
-                );
-                dataSource.insertNote(noteEntry);
+
+                //Insert new note
+                if (noteEntry == null) {
+                    List<Note> noteList = dataSource.getAllNotesFromUserByUserId(currentUser.getId());
+                    noteEntry = new Note(new Long(noteList.size()),
+                            etName.getText().toString().trim(),
+                            etNote.getText().toString().trim(),
+                            etDeadline.getText().toString().trim(),
+                            done,
+                            important,
+                            currentUser.getId()
+                    );
+                    dataSource.insertNote(noteEntry);
+                    noteList.add(noteEntry);
+                }
+                //Update note
+                else{
+                    noteEntry.update(
+                            etName.getText().toString().trim(),
+                            etNote.getText().toString().trim(),
+                            etDeadline.getText().toString().trim(),
+                            done,
+                            important
+                    );
+                    dataSource.updateNote(noteEntry);
+                }
                 dataSource.close();
-                noteList.add(noteEntry);
                 finish();
             }
         });

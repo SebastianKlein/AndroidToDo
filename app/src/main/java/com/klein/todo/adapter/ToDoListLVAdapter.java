@@ -17,6 +17,7 @@ import com.klein.todo.AddNoteActivity;
 import com.klein.todo.R;
 import com.klein.todo.database.DataSource;
 import com.klein.todo.model.Note;
+import com.klein.todo.model.User;
 
 import java.util.List;
 
@@ -25,18 +26,20 @@ import java.util.List;
  */
 public class ToDoListLVAdapter extends ArrayAdapter<Note> {
 
-    private Context parent;
+    private Context context;
     private static int resourceID = R.layout.todo_entry;
     private DataSource dataSource;
 
     private List<Note> toDoList;
+    private User currentUser;
 
-    public ToDoListLVAdapter(Activity context,  List<Note> toDoList){
+    public ToDoListLVAdapter(Activity context,  List<Note> toDoList, User currentUser){
         super(context, resourceID);
 
-        this.parent = context;
+        this.context = context;
         this.toDoList = toDoList;
         this.dataSource = new DataSource(context);
+        this.currentUser = currentUser;
     }
 
 
@@ -81,7 +84,10 @@ public class ToDoListLVAdapter extends ArrayAdapter<Note> {
         convertView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-            //TODO edit note öffnen
+            Intent editNote = new Intent(context, AddNoteActivity.class);
+            editNote.putExtra("CurrentUser", currentUser);
+            editNote.putExtra("CurrentNote", rowItem);
+            context.startActivity(editNote);
             }
         });
 

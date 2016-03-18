@@ -61,6 +61,7 @@ public class ToDoListActivity extends AppCompatActivity {
             }
         });
 
+        //Todo
         currentUser = new User(0, "lala", "lala");
         fillToDoList();
 
@@ -72,12 +73,12 @@ public class ToDoListActivity extends AppCompatActivity {
         toDoList = dataSource.getAllNotesFromUserByUserId(currentUser.getId());
         dataSource.close();
 
-        lvAdapter = new ToDoListLVAdapter(this, toDoList);
+        lvAdapter = new ToDoListLVAdapter(this, toDoList, currentUser);
     }
 
     public void accountSettings(){
         Intent accountSettings_intent = new Intent(this, AccountSettingsActivity.class);
-        accountSettings_intent.putExtra("User", currentUser);
+        accountSettings_intent.putExtra("CurrentUser", currentUser);
         startActivity(accountSettings_intent);
     }
 
@@ -85,12 +86,5 @@ public class ToDoListActivity extends AppCompatActivity {
         Intent addNote_intent = new Intent(this, AddNoteActivity.class);
         addNote_intent.putExtra("User", currentUser);
         startActivity(addNote_intent);
-    }
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        fillToDoList();
     }
 }
