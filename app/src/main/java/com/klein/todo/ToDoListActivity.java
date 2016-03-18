@@ -30,8 +30,6 @@ public class ToDoListActivity extends AppCompatActivity {
     private ToDoListLVAdapter lvAdapter;
     private List<Note> toDoList;
 
-
-    private int ID = 0;
     private User currentUser;
 
     @Override
@@ -84,7 +82,7 @@ public class ToDoListActivity extends AppCompatActivity {
 
     public void addNote() {
         Intent addNote_intent = new Intent(this, AddNoteActivity.class);
-        addNote_intent.putExtra("User", currentUser);
+        addNote_intent.putExtra("CurrentUser", currentUser);
         startActivity(addNote_intent);
     }
 }
