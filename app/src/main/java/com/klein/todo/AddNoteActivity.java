@@ -60,13 +60,13 @@ public class AddNoteActivity extends AppCompatActivity {
                 int userID = addNote_Intent.getIntExtra("user_id", -1);
                 dataSource.open();
                 List<Note> noteList = dataSource.getAllNotesFromUserByUserId(userID);  // id <<
-                Note noteEntry = new Note(noteList.size(),
+                Note noteEntry = new Note(new Long(noteList.size()),
                         etName.getText().toString().trim(),
                         etNote.getText().toString().trim(),
                         etDeadline.getText().toString().trim(),
                         done,
                         important,
-                        userID
+                        0 //userID
                 );
                 dataSource.insertNote(noteEntry);
                 dataSource.close();

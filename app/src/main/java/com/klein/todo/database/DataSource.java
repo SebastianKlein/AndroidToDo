@@ -6,6 +6,7 @@ import com.klein.todo.model.User;
 
 import android.content.ContentValues;
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
@@ -59,23 +60,22 @@ public class DataSource {
     }
 
     public List<User> getAllUser(){
-        List<User> userList = new ArrayList<User>();
         Cursor cursor = database.query("USER", null, null, null, null, null, null, null);
         cursor.moveToFirst();
 
         //User available?
         if(cursor.getCount() == 0) {
             cursor.close();
-            return userList;
+            return null;
         }
 
         //Get user
+        List<User> userList = new ArrayList<User>();
         while (!cursor.isAfterLast()){
             User entry = userCurserToEntry(cursor);
             userList.add(entry);
             cursor.moveToNext();
         }
-
         return userList;
     }
 
@@ -120,11 +120,22 @@ public class DataSource {
         database.update("NOTE", values, "ID=" + entry.getId(), null);
     }
 
-    public List<Note> getAllNotesFromUserByUserId(int id){
+    public List<Note> getAllNotesFromUserByUserId(long userId){
+        Cursor cursor = database.query("NOTE", null, "USER_ID = '" + userId + "'", null, null, null, null );
+        cursor.moveToFirst();
+
+        //Entries available?
+       /* if(cursor.getCount() == 0) {
+            cursor.close();
+        }*/
+
+        //Get entries
         List<Note> noteList = new ArrayList<Note>();
-        //TODO
-
-
+        while (!cursor.isAfterLast()){
+            Note entry = noteCurserToEntry(cursor);
+            noteList.add(entry);
+            cursor.moveToNext();
+        }
         return noteList;
     }
-  }
+}

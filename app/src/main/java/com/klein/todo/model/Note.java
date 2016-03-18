@@ -70,6 +70,13 @@ public class Note {
         this.done = done;
     }
 
+    public void swapDone(){
+        if(done == true)
+            done = false;
+        else
+            done = true;
+    }
+
     public long getUserId(){
         return this.userId;
     }
