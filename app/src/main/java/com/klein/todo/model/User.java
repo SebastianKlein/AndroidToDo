@@ -1,9 +1,12 @@
 package com.klein.todo.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Sebastian on 16.03.2016.
  */
-public class User {
+public class User implements Parcelable {
 
     private long id;
     private String name;
@@ -37,5 +40,32 @@ public class User {
 
     public void setPassword(String password){
         this.password = password;
+    }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeLong(this.id);
+        out.writeString(this.name);
+        out.writeString(this.password);
+    }
+
+    public static final Parcelable.Creator<User> CREATOR
+            = new Parcelable.Creator<User>() {
+        public User createFromParcel(Parcel in) {
+            return new User(in);
+        }
+
+        public User[] newArray(int size) {
+            return new User[size];
+        }
+    };
+
+    private User(Parcel in) {
+        id = in.readLong();
+        name = in.readString();
+        password = in.readString();
     }
 }

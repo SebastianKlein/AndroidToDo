@@ -26,6 +26,8 @@ public class AddNoteActivity extends AppCompatActivity {
     private boolean important = false;
     private boolean done = false;
 
+    private User currentUser;
+
     public void onCheckboxClicked(View view) {
         done = cbDone.isChecked();
         important = cbImportant.isChecked();
@@ -36,6 +38,10 @@ public class AddNoteActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_note);
         dataSource = new DataSource(this);
+
+        Intent getIntent = getIntent();
+        currentUser = (User) getIntent.getParcelableExtra("User");
+
 
         etName = (EditText) findViewById(R.id.etName);
         etNote = (EditText) findViewById(R.id.etNote);
@@ -56,20 +62,19 @@ public class AddNoteActivity extends AppCompatActivity {
         bCreate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent addNote_Intent = getIntent();
-                int userID = addNote_Intent.getIntExtra("user_id", -1);
                 dataSource.open();
-                List<Note> noteList = dataSource.getAllNotesFromUserByUserId(userID);  // id <<
+                List<Note> noteList = dataSource.getAllNotesFromUserByUserId(currentUser.getId());
                 Note noteEntry = new Note(new Long(noteList.size()),
                         etName.getText().toString().trim(),
                         etNote.getText().toString().trim(),
                         etDeadline.getText().toString().trim(),
                         done,
                         important,
-                        0 //userID
+                        currentUser.getId()
                 );
                 dataSource.insertNote(noteEntry);
                 dataSource.close();
+                noteList.add(noteEntry);
                 finish();
             }
         });

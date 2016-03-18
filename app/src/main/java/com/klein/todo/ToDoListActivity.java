@@ -83,6 +83,7 @@ public class ToDoListActivity extends AppCompatActivity {
 
     public void addNote() {
         Intent addNote_intent = new Intent(this, AddNoteActivity.class);
+        addNote_intent.putExtra("User", currentUser);
         startActivity(addNote_intent);
     }
 
