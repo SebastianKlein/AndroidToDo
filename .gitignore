@@ -22,3 +22,4 @@
 AndroidToDo.iml
 local.properties
 build/intermediates/dex-cache/cache.xml
+.idea/workspace.xml

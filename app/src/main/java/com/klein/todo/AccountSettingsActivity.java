@@ -21,12 +21,15 @@ public class AccountSettingsActivity extends AppCompatActivity {
     private EditText etPassword;
     private EditText etNewPassword;
     private EditText etNewPasswordVerify;
-    private User currentUser; // = dataSource.getUser(id);
+    private User currentUser;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account_settings);
+
+        Intent getIntent = getIntent();
+        currentUser = (User) getIntent.getParcelableExtra("User");
 
         etPassword = (EditText) findViewById(R.id.etPassword);
         etNewPassword = (EditText) findViewById(R.id.etNewPassword);

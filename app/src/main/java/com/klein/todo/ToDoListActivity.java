@@ -77,7 +77,7 @@ public class ToDoListActivity extends AppCompatActivity {
 
     public void accountSettings(){
         Intent accountSettings_intent = new Intent(this, AccountSettingsActivity.class);
-
+        accountSettings_intent.putExtra("User", currentUser);
         startActivity(accountSettings_intent);
     }
 

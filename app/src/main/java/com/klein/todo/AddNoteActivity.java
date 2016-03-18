@@ -42,7 +42,6 @@ public class AddNoteActivity extends AppCompatActivity {
         Intent getIntent = getIntent();
         currentUser = (User) getIntent.getParcelableExtra("User");
 
-
         etName = (EditText) findViewById(R.id.etName);
         etNote = (EditText) findViewById(R.id.etNote);
         etDeadline = (EditText) findViewById(R.id.etDeadline);
