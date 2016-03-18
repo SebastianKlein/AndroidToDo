@@ -1,5 +1,6 @@
 package com.klein.todo;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -82,8 +83,8 @@ public class AddNoteActivity extends AppCompatActivity {
                             etName.getText().toString().trim(),
                             etNote.getText().toString().trim(),
                             etDeadline.getText().toString().trim(),
-                            done,
                             important,
+                            done,
                             currentUser.getId()
                     );
                     dataSource.insertNote(noteEntry);
@@ -95,12 +96,15 @@ public class AddNoteActivity extends AppCompatActivity {
                             etName.getText().toString().trim(),
                             etNote.getText().toString().trim(),
                             etDeadline.getText().toString().trim(),
-                            done,
-                            important
+                            important,
+                            done
                     );
                     dataSource.updateNote(noteEntry);
                 }
+
                 dataSource.close();
+                Intent returnIntent = new Intent();
+                setResult(Activity.RESULT_OK, returnIntent);
                 finish();
             }
         });

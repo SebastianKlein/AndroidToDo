@@ -10,6 +10,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.ListView;
 
+import com.klein.todo.Utils.AppConstants;
 import com.klein.todo.adapter.ToDoListLVAdapter;
 import com.klein.todo.database.DataSource;
 import com.klein.todo.model.Note;
@@ -72,6 +73,7 @@ public class ToDoListActivity extends AppCompatActivity {
         dataSource.close();
 
         lvAdapter = new ToDoListLVAdapter(this, toDoList, currentUser);
+        lvToDoList.setAdapter(lvAdapter);
     }
 
     public void accountSettings(){
@@ -83,6 +85,21 @@ public class ToDoListActivity extends AppCompatActivity {
     public void addNote() {
         Intent addNote_intent = new Intent(this, AddNoteActivity.class);
         addNote_intent.putExtra("CurrentUser", currentUser);
-        startActivity(addNote_intent);
+        startActivityForResult(addNote_intent, AppConstants.RESULT_ADDNOTE);
     }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(requestCode) {
+            case (AppConstants.RESULT_ADDNOTE) :
+            case (AppConstants.RESULT_EDITNOTE) : {
+                if (resultCode == RESULT_OK) {
+                    fillToDoList();
+                }
+                break;
+            }
+        }
+    }
+
 }

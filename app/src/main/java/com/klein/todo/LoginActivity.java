@@ -38,6 +38,13 @@ public class LoginActivity extends AppCompatActivity {
         List<User> userList = dataSource.getAllUser();
         dataSource.close();
 
+        //First user?
+        if (userList.isEmpty()) {
+            Intent addUser_intent = new Intent(this, AddUserActivity.class);
+            startActivity(addUser_intent);
+        }
+
+        //Loginbutton
         bLogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -53,12 +60,6 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
-
-        //First user?
-        if (userList.isEmpty()) {
-            Intent addUser_intent = new Intent(this, AddUserActivity.class);
-            startActivity(addUser_intent);
-        }
     }
 
     public void viewToDoList(int pUser_id) {

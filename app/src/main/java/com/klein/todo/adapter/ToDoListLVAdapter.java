@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.klein.todo.AddNoteActivity;
 import com.klein.todo.R;
+import com.klein.todo.Utils.AppConstants;
 import com.klein.todo.database.DataSource;
 import com.klein.todo.model.Note;
 import com.klein.todo.model.User;
@@ -26,7 +27,7 @@ import java.util.List;
  */
 public class ToDoListLVAdapter extends ArrayAdapter<Note> {
 
-    private Context context;
+    private Activity context;
     private static int resourceID = R.layout.todo_entry;
     private DataSource dataSource;
 
@@ -87,7 +88,7 @@ public class ToDoListLVAdapter extends ArrayAdapter<Note> {
             Intent editNote = new Intent(context, AddNoteActivity.class);
             editNote.putExtra("CurrentUser", currentUser);
             editNote.putExtra("CurrentNote", rowItem);
-            context.startActivity(editNote);
+            context.startActivityForResult(editNote, AppConstants.RESULT_ADDNOTE);
             }
         });
 

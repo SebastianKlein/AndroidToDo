@@ -64,10 +64,10 @@ public class DataSource {
         cursor.moveToFirst();
 
         //User available?
-        if(cursor.getCount() == 0) {
+        /*if(cursor.getCount() == 0) {
             cursor.close();
             return null;
-        }
+        }*/
 
         //Get user
         List<User> userList = new ArrayList<User>();
