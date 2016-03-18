@@ -64,8 +64,8 @@ public class User implements Parcelable {
     };
 
     private User(Parcel in) {
-        id = in.readLong();
-        name = in.readString();
-        password = in.readString();
+        this.id = in.readLong();
+        this.name = in.readString();
+        this.password = in.readString();
     }
 }

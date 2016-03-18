@@ -1,9 +1,12 @@
 package com.klein.todo.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 /**
  * Created by Sebastian on 16.03.2016.
  */
-public class Note {
+public class Note implements Parcelable {
     private long id;
     private String name;
     private String description;
@@ -16,7 +19,7 @@ public class Note {
         this.id = id;
         this.name = name;
         this.description = description;
-        this.description = timestamp;
+        this.timestamp = timestamp;
         this.important = important;
         this.done = done;
         this.userId = userId;
@@ -84,4 +87,40 @@ public class Note {
     public void setUserId(long userId){
         this.userId = userId;
     }
+
+    public int describeContents() {
+        return 0;
+    }
+
+    public void writeToParcel(Parcel out, int flags) {
+        out.writeLong(this.id);
+        out.writeString(this.name);
+        out.writeString(this.description);
+        out.writeString(this.timestamp);
+        out.writeByte((byte) (this.important ? 1 : 0));
+        out.writeByte((byte) (this.done ? 1 : 0));
+        out.writeLong(this.userId);
+    }
+
+    public static final Parcelable.Creator<Note> CREATOR
+            = new Parcelable.Creator<Note>() {
+        public Note createFromParcel(Parcel in) {
+            return new Note(in);
+        }
+
+        public Note[] newArray(int size) {
+            return new Note[size];
+        }
+    };
+
+    private Note(Parcel in) {
+        this.id = in.readLong();
+        this.name = in.readString();
+        this.description = in.readString();
+        this.timestamp = in.readString();
+        this.important = in.readByte() != 0;
+        this.done = in.readByte() != 0;
+        this.userId = in.readLong();
+    }
+
 }
