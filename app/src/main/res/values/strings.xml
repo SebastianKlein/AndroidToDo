@@ -26,9 +26,12 @@
     <string name="context_menu_mark">Mark as important</string>
 
     <!-- ####### AccountSettings ###### -->
-    <string name="add_account">add another account</string>
+    <string name="user_management">User Management</string>
     <string name="change_password">change password</string>
     <string name="current_password">current password</string>
     <string name="new_password">new password</string>
     <string name="title_activity_account_settings">Account Settings</string>
+
+    <!-- ####### Usermanagement ###### -->
+    <string name="addUser">Add User</string>
 </resources>

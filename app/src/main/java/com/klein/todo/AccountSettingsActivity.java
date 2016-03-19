@@ -17,7 +17,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
     private DataSource dataSource;
     private Button bChangePassword;
-    private Button bAddAccount;
+    private Button bUserManagement;
     private EditText etPassword;
     private EditText etNewPassword;
     private EditText etNewPasswordVerify;
@@ -29,13 +29,18 @@ public class AccountSettingsActivity extends AppCompatActivity {
         setContentView(R.layout.activity_account_settings);
 
         Intent getIntent = getIntent();
-        currentUser = (User) getIntent.getParcelableExtra("User");
+        currentUser = (User) getIntent.getParcelableExtra("CurrentUser");
 
         etPassword = (EditText) findViewById(R.id.etPassword);
         etNewPassword = (EditText) findViewById(R.id.etNewPassword);
         etNewPasswordVerify = (EditText) findViewById(R.id.etNewPasswordVerify);
         bChangePassword = (Button) findViewById(R.id.bChangePassword);
-        bAddAccount = (Button) findViewById(R.id.bAddAccount);
+        bUserManagement = (Button) findViewById(R.id.bUserManagement);
+
+        //Admin?
+        if (currentUser.getId() != 1) {
+            bUserManagement.setVisibility(View.GONE);
+        }
 
         bChangePassword.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -54,22 +59,18 @@ public class AccountSettingsActivity extends AppCompatActivity {
             }
         });
 
-        bAddAccount.setOnClickListener(new View.OnClickListener() {
+        bUserManagement.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (currentUser.getId() == 0) {
-                    addUser();
-                }
+                manageUser();
             }
         });
 
-        // TODO: delete user
-
     }
 
-    private void addUser() {
-        Intent addUser_intent = new Intent(this, AddUserActivity.class);
-        startActivity(addUser_intent);
+    private void manageUser() {
+        Intent manageUser_intent = new Intent(this, UserManagementActivity.class);
+        startActivity(manageUser_intent);
     }
 
     private boolean check_values(String password, String passwordVerify) {

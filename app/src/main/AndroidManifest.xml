@@ -19,6 +19,9 @@
             android:name=".AddNoteActivity"
             android:label="@string/title_activity_add_entry" />
         <activity
+            android:name=".UserManagementActivity"
+            android:label="User Management" />
+        <activity
             android:name=".ToDoListActivity"
             android:label="ToDo_List"
             android:theme="@style/AppTheme.NoActionBar">

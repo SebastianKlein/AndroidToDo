@@ -23,25 +23,25 @@
 
     <item
         android:id="@+id/sortTime"
-        android:orderInCategory="3"
+        android:orderInCategory="4"
         android:title="Sort: time"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/sortImortant"
-        android:orderInCategory="3"
+        android:orderInCategory="5"
         android:title="Sort: important"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/hideDone"
-        android:orderInCategory="3"
-        android:title="Show/Hide Doneentries"
+        android:orderInCategory="6"
+        android:title="Show/Hide Done"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/loguot"
-        android:orderInCategory="3"
+        android:orderInCategory="7"
         android:title="Logout"
         app:showAsAction="never" />
 </menu>
