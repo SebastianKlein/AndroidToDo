@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 
 import com.klein.todo.adapter.UserManagementLVAdapter;
 import com.klein.todo.database.DataSource;
@@ -22,10 +23,11 @@ public class UserManagementActivity extends AppCompatActivity {
 
     //Layout
     Button bAddUser;
+    private ListView lvUserList;
 
     //Userlist
     private UserManagementLVAdapter lvAdapter;
-    private List<User> toDoList;
+    private List<User> userList;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -42,8 +44,7 @@ public class UserManagementActivity extends AppCompatActivity {
             }
         });
 
-
-
+        fillUserlist();
     }
 
     private void addUser() {
@@ -51,5 +52,13 @@ public class UserManagementActivity extends AppCompatActivity {
         startActivity(manageUser_intent);
     }
 
+    private void fillUserlist(){
+        dataSource.open();
+        userList = dataSource.getAllNotesFromUserByUser();
+        dataSource.close();
+
+        lvAdapter = new UserManagementLVAdapter(this);
+        lvUserList.setAdapter(lvAdapter);
+    }
 
 }

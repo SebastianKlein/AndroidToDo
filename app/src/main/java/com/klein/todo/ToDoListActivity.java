@@ -50,7 +50,7 @@ public class ToDoListActivity extends AppCompatActivity {
         lvToDoList = (ListView) findViewById(R.id.lvToDoList);
         registerForContextMenu(lvToDoList);
 
-        //Add entry
+        //Add entry button
         fbAdd = (FloatingActionButton) findViewById(R.id.fbAdd);
         fbAdd.setOnClickListener(new View.OnClickListener() {
             @Override

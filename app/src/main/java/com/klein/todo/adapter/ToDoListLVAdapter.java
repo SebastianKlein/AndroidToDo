@@ -1,25 +1,18 @@
 package com.klein.todo.adapter;
 
 import android.app.Activity;
-import android.content.Context;
 
 import android.content.Intent;
-import android.media.Image;
-import android.view.ContextMenu;
-import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.klein.todo.AddNoteActivity;
 import com.klein.todo.R;
-import com.klein.todo.ToDoListActivity;
 import com.klein.todo.Utils.AppConstants;
 import com.klein.todo.database.DataSource;
 import com.klein.todo.model.Note;
