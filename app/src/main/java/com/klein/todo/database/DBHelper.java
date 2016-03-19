@@ -17,7 +17,9 @@ public class DBHelper extends SQLiteOpenHelper {
             "create table USER("
                     +   "ID integer primary key autoincrement, "
                     +   "NAME text, "
-                    +   "PASSWORD text)";
+                    +   "PASSWORD text, "
+                    +   "SHOWDONE int, "
+                    +   "SORT int)";
 
     // NOTE_TABLE
     private static final String TABLE_NOTE =

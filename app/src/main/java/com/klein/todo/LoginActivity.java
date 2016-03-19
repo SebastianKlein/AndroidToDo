@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.klein.todo.Utils.AppConstants;
 import com.klein.todo.database.DataSource;
 import com.klein.todo.model.User;
 
@@ -52,19 +53,17 @@ public class LoginActivity extends AppCompatActivity {
                 List<User> userList = dataSource.getAllUser();
                 dataSource.close();
                 for (int i = 0; i <= userList.size() - 1; i++) { // i = id
-          //TODO    //if (userList.get(i).getName().equals(etName.getText().toString().trim()) && userList.get(i).getPassword().equals(etPassword.getText().toString().trim())) {
-                    if(true){
+                    //TODO    //if (userList.get(i).getName().equals(etName.getText().toString().trim()) && userList.get(i).getPassword().equals(etPassword.getText().toString().trim())) {
+                    if (true) {
                         //login..
-                        viewToDoList(i);
+                        Intent resultLogin = new Intent();
+                        resultLogin.putExtra("CurrentUser", userList.get(i));
+                        setResult(RESULT_OK, resultLogin);
+                        finish();
                     }
                 }
+
             }
         });
-    }
-
-    public void viewToDoList(int pUser_id) {
-        Intent toDoList_intent = new Intent(this, ToDoListActivity.class);
-        toDoList_intent.putExtra("user_id", 0); // 0 => i
-        startActivity(toDoList_intent);
     }
 }

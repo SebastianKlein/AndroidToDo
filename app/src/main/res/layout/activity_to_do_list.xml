@@ -3,18 +3,26 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:columnCount="1"
-    android:rowCount="3">
+    android:rowCount="4">
 
-    <Button
+    <include
+        android:id="@+id/toolbar"
+        layout="@layout/toolbar"
+        android:layout_width="match_parent"
+        android:layout_row="0"
+        android:layout_column="0"></include>
+
+    Button
         android:id="@+id/bSettings"
         android:layout_gravity="end"
-        android:layout_row="0"
+        android:layout_row="1"
+        android:layout_column="0"
         android:text="@string/acc_settings"
         />
 
     <ListView
         android:layout_width="wrap_content"
-        android:layout_height="384dp"
+        android:layout_height="395dp"
         android:id="@+id/lvToDoList"
         android:layout_row="2"
         android:layout_column="0" />
@@ -22,6 +30,8 @@
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fbAdd"
         android:layout_gravity="end"
-        android:layout_row="2"
-        android:src="@android:drawable/ic_input_add" />
+        android:layout_row="3"
+        android:src="@android:drawable/ic_input_add"
+        android:layout_column="0" />
+
 </GridLayout>

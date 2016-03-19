@@ -10,29 +10,26 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".LoginActivity"
-            android:label="ToDo">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:label="ToDo_Login"/>
         <activity
             android:name=".AddUserActivity"
             android:label="AddUserActivity"
             android:noHistory="false" />
         <activity
             android:name=".AddNoteActivity"
-            android:label="@string/title_activity_add_entry"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="@string/title_activity_add_entry" />
         <activity
             android:name=".ToDoListActivity"
-            android:label="ToDo"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:label="ToDo_List"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".AccountSettingsActivity"
-            android:label="@string/title_activity_account_settings"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:label="@string/title_activity_account_settings"></activity>
     </application>
 
 </manifest>

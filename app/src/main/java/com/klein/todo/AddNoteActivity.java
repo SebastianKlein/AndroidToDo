@@ -78,7 +78,7 @@ public class AddNoteActivity extends AppCompatActivity {
 
                 //Insert new note
                 if (noteEntry == null) {
-                    List<Note> noteList = dataSource.getAllNotesFromUserByUserId(currentUser.getId());
+                    List<Note> noteList = dataSource.getAllNotesFromUserByUser(currentUser);
                     noteEntry = new Note(new Long(noteList.size()),
                             etName.getText().toString().trim(),
                             etNote.getText().toString().trim(),

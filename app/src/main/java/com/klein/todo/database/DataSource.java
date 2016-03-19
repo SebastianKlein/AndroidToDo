@@ -1,5 +1,6 @@
 package com.klein.todo.database;
 
+import com.klein.todo.Utils.AppConstants;
 import com.klein.todo.model.Note;
 import com.klein.todo.model.User;
 
@@ -47,7 +48,9 @@ public class DataSource {
     private User userCurserToEntry(Cursor cursor){
         User entry = new User(cursor.getLong(0),    //ID
                             cursor.getString(1),    //Name
-                            cursor.getString(2));   //Password
+                            cursor.getString(2),    //Password
+                            (cursor.getInt(3) == 1),//ShowDone
+                            cursor.getInt((4)));    //sort
         return entry;
     }
 
@@ -55,19 +58,26 @@ public class DataSource {
         ContentValues values = new ContentValues();
         values.put("NAME", entry.getName());
         values.put("PASSWORD", entry.getPassword());
+        values.put("SHOWDONE", entry.getShowDone());
+        values.put("SORT", entry.getSort());
 
          database.insert("USER", null, values);
     }
 
-    public List<User> getAllUser(){
-        Cursor cursor = database.query("USER", null, null, null, null, null, null, null);
-        cursor.moveToFirst();
+    public void updateUser(User entry){
+        ContentValues values = new ContentValues();
+        values.put("NAME", entry.getName());
+        values.put("PASSWORD", entry.getPassword());
+        values.put("SHOWDONE", entry.getShowDone());
+        values.put("SORT", entry.getSort());
 
-        //User available?
-        /*if(cursor.getCount() == 0) {
-            cursor.close();
-            return null;
-        }*/
+        database.update("USER", values, "ID=" + entry.getId(), null);
+    }
+
+
+    public List<User> getAllUser(){
+        Cursor cursor = database.query("USER", null, null, null, null, null, null);
+        cursor.moveToFirst();
 
         //Get user
         List<User> userList = new ArrayList<User>();
@@ -89,7 +99,7 @@ public class DataSource {
                 cursor.getString(3),                //Timestamp
                 (cursor.getInt(4) == 1),            //Important
                 (cursor.getInt(5) == 1),            //Done
-                cursor.getLong(6));                 //Done
+                cursor.getLong(6));                 //UserID
         return entry;
     }
 
@@ -109,6 +119,10 @@ public class DataSource {
         database.delete("NOTE", "ID=" + entry.getId(), null);
     }
 
+    public void deleteAllNotesFromUser(User currentUser){
+        database.delete("NOTE", "USER_ID=" + currentUser.getId(), null);
+    }
+
     public void updateNote(Note entry){
         ContentValues values = new ContentValues();
         values.put("NAME", entry.getName());
@@ -120,14 +134,47 @@ public class DataSource {
         database.update("NOTE", values, "ID=" + entry.getId(), null);
     }
 
-    public List<Note> getAllNotesFromUserByUserId(long userId){
-        Cursor cursor = database.query("NOTE", null, "USER_ID = '" + userId + "'", null, null, null, null );
+    public List<Note> getAllNotesFromUserByUser(User currentUser){
+        String whereStatment = null;
+        String orderStatment = null;
+
+
+        if(currentUser.getShowDone() == false) {
+            whereStatment = "USER_ID = '" + currentUser.getId() + "'" + " AND DONE = '0'";
+        }
+
+        switch(currentUser.getSort()){
+            case AppConstants.ASC_DATE:
+                orderStatment = "TIMESTAMP ASC";
+                break;
+
+            case AppConstants.ASC_IMPORTANT:
+                orderStatment = "IMPORTANT DESC, TIMESTAMP ASC";
+                break;
+        }
+
+        Cursor cursor = database.query("NOTE", null, whereStatment , null, null, null, orderStatment );
+
+
         cursor.moveToFirst();
 
-        //Entries available?
-       /* if(cursor.getCount() == 0) {
-            cursor.close();
-        }*/
+
+        //Get entries
+        List<Note> noteList = new ArrayList<Note>();
+        while (!cursor.isAfterLast()){
+            Note entry = noteCurserToEntry(cursor);
+            noteList.add(entry);
+            cursor.moveToNext();
+        }
+        return noteList;
+    }
+
+    public List<Note> getAllNotesFromUserByUserIdWithoutDone(User currentUser){
+        String whereStatment = "USER_ID = '" + currentUser.getId() + "'" + " AND "
+                                + "DONE = '0'";
+
+        Cursor cursor = database.query("NOTE", null, whereStatment , null, null, null, null );
+        cursor.moveToFirst();
 
         //Get entries
         List<Note> noteList = new ArrayList<Note>();

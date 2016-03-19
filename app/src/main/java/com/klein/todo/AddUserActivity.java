@@ -7,6 +7,7 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import com.klein.todo.Utils.AppConstants;
 import com.klein.todo.database.DataSource;
 import com.klein.todo.model.User;
 
@@ -42,9 +43,9 @@ public class AddUserActivity extends AppCompatActivity{
                 if(check_values()) {
                     dataSource.open();
                     List<User> userList = dataSource.getAllUser();
-                    User entry = new User(userList.size(),                                         //ID
-                            etName.getText().toString().trim(),      //Name
-                            etPassword.getText().toString().trim()); //Password
+                    User entry = new User(userList.size(),          //ID
+                            etName.getText().toString().trim(),     //Name
+                            etPassword.getText().toString().trim());//Password
                     dataSource.insertUser(entry);
                     dataSource.close();
                     onBackPressed();

@@ -3,6 +3,8 @@ package com.klein.todo.model;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.klein.todo.Utils.AppConstants;
+
 /**
  * Created by Sebastian on 16.03.2016.
  */
@@ -11,11 +13,23 @@ public class User implements Parcelable {
     private long id;
     private String name;
     private String password;
+    private boolean showDone;
+    private int sort;
 
     public User(long id, String name, String password){
         this.id = id;
         this.name = name;
         this.password = password;
+        this.showDone = true;
+        this.sort = AppConstants.ASC_DATE;
+    }
+
+    public User(long id, String name, String password, boolean showDone, int sort){
+        this.id = id;
+        this.name = name;
+        this.password = password;
+        this.showDone = showDone;
+        this.sort = sort;
     }
 
     public long getId(){
@@ -42,6 +56,29 @@ public class User implements Parcelable {
         this.password = password;
     }
 
+    public boolean getShowDone(){
+        return showDone;
+    }
+
+    public void setShowDone(boolean showDone){
+        this.showDone = showDone;
+    }
+
+    public void swapShowDone(){
+        if(showDone == true)
+            showDone = false;
+        else
+            showDone = true;
+    }
+
+    public int getSort(){
+        return sort;
+    }
+
+    public void setSort(int sort){
+        this.sort = sort;
+    }
+
     public int describeContents() {
         return 0;
     }
@@ -50,6 +87,8 @@ public class User implements Parcelable {
         out.writeLong(this.id);
         out.writeString(this.name);
         out.writeString(this.password);
+        out.writeByte((byte) (this.showDone ? 1 : 0));
+        out.writeInt(this.sort);
     }
 
     public static final Parcelable.Creator<User> CREATOR
@@ -67,5 +106,7 @@ public class User implements Parcelable {
         this.id = in.readLong();
         this.name = in.readString();
         this.password = in.readString();
+        this.showDone = in.readByte() != 0;
+        this.sort = in.readInt();
     }
 }

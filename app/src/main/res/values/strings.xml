@@ -9,8 +9,7 @@
 
     <!-- ####### Add User ###### -->
     <string name="create">Create</string>
-    <string name="title_activity_todo_list">todo_list</string>
-    <string name="title_activity_add_entry">add_entry</string>
+    <string name="title_activity_add_entry">Add User</string>
 
     <!-- ####### ToDoList ###### -->
     <string name="note">...</string>

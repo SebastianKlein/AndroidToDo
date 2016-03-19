@@ -4,11 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.Toolbar;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.ListView;
 
 import com.klein.todo.Utils.AppConstants;
@@ -25,21 +26,25 @@ public class ToDoListActivity extends AppCompatActivity {
     private DataSource dataSource;
 
     //Layout
-    private Button bSettings;
     private FloatingActionButton fbAdd;
     private ListView lvToDoList;
+    private Toolbar toolbar;
 
     //ToDo_List
     private ToDoListLVAdapter lvAdapter;
     private List<Note> toDoList;
 
-    private User currentUser;
+    private User currentUser = null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_to_do_list);
         dataSource = new DataSource(this);
+
+        //Toolbar
+        toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
 
         //ToDo_List
         lvToDoList = (ListView) findViewById(R.id.lvToDoList);
@@ -54,25 +59,23 @@ public class ToDoListActivity extends AppCompatActivity {
             }
         });
 
-        //Accoutsettings
-        bSettings = (Button) findViewById(R.id.bSettings);
-        bSettings.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                accountSettings();
-            }
-        });
+        //Logged in?
+        if (currentUser == null) {
+            startLogin();
+        }
+        else {
+            fillToDoList();
+        }
+    }
 
-        //Todo
-        currentUser = new User(0, "lala", "lala");
-        fillToDoList();
-
-        lvToDoList.setAdapter(lvAdapter);
+    public void startLogin(){
+        Intent login_Intent = new Intent(this, LoginActivity.class);
+        startActivityForResult(login_Intent, AppConstants.RESULT_LOGIN);
     }
 
     public void fillToDoList(){
         dataSource.open();
-        toDoList = dataSource.getAllNotesFromUserByUserId(currentUser.getId());
+        toDoList = dataSource.getAllNotesFromUserByUser(currentUser);
         dataSource.close();
 
         lvAdapter = new ToDoListLVAdapter(this, toDoList, currentUser);
@@ -91,15 +94,26 @@ public class ToDoListActivity extends AppCompatActivity {
         startActivityForResult(addNote_intent, AppConstants.RESULT_ADDNOTE);
     }
 
+    public void deleteAllNotes(){
+        dataSource.open();
+        dataSource.deleteAllNotesFromUser(currentUser);
+        dataSource.close();
+    }
+
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode) {
-            case (AppConstants.RESULT_ADDNOTE) :
-            case (AppConstants.RESULT_EDITNOTE) :
+            case AppConstants.RESULT_ADDNOTE :
+            case AppConstants.RESULT_EDITNOTE :
                 if (resultCode == RESULT_OK) {
                     fillToDoList();
                 }
+                break;
+
+            case AppConstants.RESULT_LOGIN:
+                currentUser =  (User) data.getParcelableExtra("CurrentUser");
+                fillToDoList();
                 break;
         }
     }
@@ -150,5 +164,64 @@ public class ToDoListActivity extends AppCompatActivity {
         }
         fillToDoList();
         return true;
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // Inflate the menu; this adds items to the action bar if it is present.
+        getMenuInflater().inflate(R.menu.actionbar_menu, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // Handle action bar item clicks here. The action bar will
+        // automatically handle clicks on the Home/Up button, so long
+        // as you specify a parent activity in AndroidManifest.xml.
+
+        switch(item.getItemId()){
+            case R.id.account_settings:
+                accountSettings();
+                return true;
+
+            case R.id.add_entry:
+                addNote();
+                return true;
+
+            case R.id.delete_all:
+                deleteAllNotes();
+                fillToDoList();
+                return true;
+
+            case R.id.sortTime:
+                currentUser.setSort(AppConstants.ASC_DATE);
+                updateUser();
+                fillToDoList();
+                return true;
+
+            case R.id.sortImortant:
+                currentUser.setSort(AppConstants.ASC_IMPORTANT);
+                updateUser();
+                fillToDoList();
+                return true;
+
+            case R.id.hideDone:
+                currentUser.swapShowDone();
+                updateUser();
+                fillToDoList();
+                return true;
+
+            case R.id.loguot:
+                currentUser = null;
+                startLogin();
+                return true;
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    private void updateUser(){
+        dataSource.open();
+        dataSource.updateUser(currentUser);
+        dataSource.close();
     }
 }

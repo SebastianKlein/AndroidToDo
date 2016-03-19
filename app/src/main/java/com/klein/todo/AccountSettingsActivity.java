@@ -48,7 +48,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                         check_values(newPassword, newPasswordVerify)) { // new password follows rules
                     currentUser.setPassword(newPassword);
                     dataSource.open();
-                    //dataSource.updateUser(currentUser);
+                    dataSource.updateUser(currentUser);
                     dataSource.close();
                 }
             }
