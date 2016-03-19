@@ -73,6 +73,13 @@ public class Note implements Parcelable {
         this.important = important;
     }
 
+    public void swapImportant(){
+        if(important == true)
+            important = false;
+        else
+            important = true;
+    }
+
     public boolean getDone(){
         return this.done;
     }

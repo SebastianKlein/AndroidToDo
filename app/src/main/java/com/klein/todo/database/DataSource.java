@@ -105,8 +105,8 @@ public class DataSource {
         database.insert("NOTE", null, values);
     }
 
-    public void deleteNoteById(int id){
-        database.delete("NOTE", "ID=" + id, null);
+    public void deleteNote(Note entry){
+        database.delete("NOTE", "ID=" + entry.getId(), null);
     }
 
     public void updateNote(Note entry){

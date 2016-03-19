@@ -5,16 +5,21 @@ import android.content.Context;
 
 import android.content.Intent;
 import android.media.Image;
+import android.view.ContextMenu;
+import android.view.Gravity;
 import android.view.LayoutInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.klein.todo.AddNoteActivity;
 import com.klein.todo.R;
+import com.klein.todo.ToDoListActivity;
 import com.klein.todo.Utils.AppConstants;
 import com.klein.todo.database.DataSource;
 import com.klein.todo.model.Note;
@@ -33,6 +38,9 @@ public class ToDoListLVAdapter extends ArrayAdapter<Note> {
 
     private List<Note> toDoList;
     private User currentUser;
+
+    static final int NEW_MENU_ITEM = 0;
+    static final int SAVE_MENU_ITEM = 1;
 
     public ToDoListLVAdapter(Activity context,  List<Note> toDoList, User currentUser){
         super(context, resourceID);
@@ -92,7 +100,6 @@ public class ToDoListLVAdapter extends ArrayAdapter<Note> {
             }
         });
 
-
         //Long Click on rowItem
         convertView.setOnLongClickListener( new View.OnLongClickListener() {
             public boolean onLongClick(View v) {
@@ -100,7 +107,6 @@ public class ToDoListLVAdapter extends ArrayAdapter<Note> {
                 return false;
             }
         });
-
         return convertView;
     }
 

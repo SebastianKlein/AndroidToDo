@@ -21,6 +21,11 @@
     <string name="done">done</string>
     <string name="acc_settings">account settings</string>
 
+    <!-- ####### ToDoList - Contextmenu ###### -->
+    <string name="context_menu_delete">Delete</string>
+    <string name="context_menu_edit">Edit</string>
+    <string name="context_menu_mark">Mark as important</string>
+
     <!-- ####### AccountSettings ###### -->
     <string name="add_account">add another account</string>
     <string name="change_password">change password</string>
