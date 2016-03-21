@@ -6,7 +6,7 @@
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="450dp"
-        android:id="@+id/listView"
+        android:id="@+id/lvUserlist"
         android:layout_row="0"
         android:layout_column="0" />
 

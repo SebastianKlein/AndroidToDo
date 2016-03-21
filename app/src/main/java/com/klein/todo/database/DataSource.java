@@ -74,9 +74,26 @@ public class DataSource {
         database.update("USER", values, "ID=" + entry.getId(), null);
     }
 
+    public void deleteUser(User entry){
+        database.delete("USER", "ID=" + entry.getId(), null);
+    }
 
     public List<User> getAllUser(){
         Cursor cursor = database.query("USER", null, null, null, null, null, null);
+        cursor.moveToFirst();
+
+        //Get user
+        List<User> userList = new ArrayList<User>();
+        while (!cursor.isAfterLast()){
+            User entry = userCurserToEntry(cursor);
+            userList.add(entry);
+            cursor.moveToNext();
+        }
+        return userList;
+    }
+
+    public List<User> getAllUserNoAdmin(){
+        Cursor cursor = database.query("USER", null, "ID!=1", null, null, null, null);
         cursor.moveToFirst();
 
         //Get user

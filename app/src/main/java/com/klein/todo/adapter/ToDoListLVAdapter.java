@@ -32,8 +32,6 @@ public class ToDoListLVAdapter extends ArrayAdapter<Note> {
     private List<Note> toDoList;
     private User currentUser;
 
-    static final int NEW_MENU_ITEM = 0;
-    static final int SAVE_MENU_ITEM = 1;
 
     public ToDoListLVAdapter(Activity context,  List<Note> toDoList, User currentUser){
         super(context, resourceID);
@@ -47,15 +45,15 @@ public class ToDoListLVAdapter extends ArrayAdapter<Note> {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-        final Note rowItem = toDoList.get(position);
-
         if(convertView == null)
             convertView = LayoutInflater.from(parent.getContext()).inflate(resourceID, parent, false);
 
+        final Note rowItem = toDoList.get(position);
+
         //Change Backgroundcolor / Check Timestamp
-        /*(System.currentTimeMillis() > Long.valueOf(rowItem.getTimestamp()) ) {
-            convertView.setBackgroundColor(0xFF00FF00);
-        }*/
+        if(System.currentTimeMillis() > Long.valueOf(rowItem.getTimestamp()) ) {
+            convertView.setBackgroundColor(0xFF6600);
+        }
 
         //Name
         TextView tvName = (TextView) convertView.findViewById(R.id.tvName);
@@ -96,7 +94,6 @@ public class ToDoListLVAdapter extends ArrayAdapter<Note> {
         //Long Click on rowItem
         convertView.setOnLongClickListener( new View.OnLongClickListener() {
             public boolean onLongClick(View v) {
-               //TODO
                 return false;
             }
         });

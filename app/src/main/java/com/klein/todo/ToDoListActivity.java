@@ -105,7 +105,7 @@ public class ToDoListActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
         switch(requestCode) {
             case AppConstants.RESULT_ADDNOTE :
-            case AppConstants.RESULT_EDITNOTE :
+            case AppConstants.RESULT_ADDUSER :
                 if (resultCode == RESULT_OK) {
                     fillToDoList();
                 }
