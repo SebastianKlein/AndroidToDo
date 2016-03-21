@@ -43,12 +43,24 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="ToDoListLVAdapter.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="ToDoListLVAdapter.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/klein/todo/adapter/ToDoListLVAdapter.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.29553264">
+            <state vertical-scroll-proportion="0.0">
               <caret line="54" column="53" selection-start-line="54" selection-start-column="53" selection-end-line="54" selection-end-column="53" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="LoginActivity.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/klein/todo/LoginActivity.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.24054983">
+              <caret line="48" column="55" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
+              <folding>
+                <element signature="e#2210#2211#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -1660,7 +1672,6 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_to_do_list.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/klein/todo/database/DBHelper.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/klein/todo/model/User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/klein/todo/LoginActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/actionbar_menu.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_account_settings.xml" />
         <option value="$PROJECT_DIR$/app/src/main/AndroidManifest.xml" />
@@ -1679,6 +1690,7 @@
         <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_date_and_time.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/klein/todo/AddNoteActivity.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/klein/todo/adapter/ToDoListLVAdapter.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/klein/todo/LoginActivity.java" />
       </list>
     </option>
   </component>
@@ -2194,7 +2206,7 @@
           <option name="timeStamp" value="42" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="48" />
+      <option name="time" value="49" />
     </breakpoint-manager>
     <watches-manager />
   </component>
@@ -2559,14 +2571,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/klein/todo/LoginActivity.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.9879725">
-          <caret line="55" column="22" selection-start-line="55" selection-start-column="22" selection-end-line="55" selection-end-column="22" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/colors.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2595,9 +2599,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/klein/todo/adapter/ToDoListLVAdapter.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.29553264">
+        <state vertical-scroll-proportion="0.0">
           <caret line="54" column="53" selection-start-line="54" selection-start-column="53" selection-end-line="54" selection-end-column="53" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/klein/todo/LoginActivity.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.24054983">
+          <caret line="48" column="55" selection-start-line="48" selection-start-column="55" selection-end-line="48" selection-end-column="55" />
+          <folding>
+            <element signature="e#2210#2211#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

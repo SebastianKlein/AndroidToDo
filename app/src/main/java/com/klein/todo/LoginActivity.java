@@ -53,8 +53,7 @@ public class LoginActivity extends AppCompatActivity {
                 List<User> userList = dataSource.getAllUser();
                 dataSource.close();
                 for (int i = 0; i <= userList.size() - 1; i++) { // i = id
-                    //TODO    //if (userList.get(i).getName().equals(etName.getText().toString().trim()) && userList.get(i).getPassword().equals(etPassword.getText().toString().trim())) {
-                    if (true) {
+                    if (userList.get(i).getName().equals(etName.getText().toString().trim()) && userList.get(i).getPassword().equals(etPassword.getText().toString().trim())) {
                         //login..
                         Intent resultLogin = new Intent();
                         resultLogin.putExtra("CurrentUser", userList.get(i));
