@@ -152,12 +152,12 @@ public class DataSource {
     }
 
     public List<Note> getAllNotesFromUserByUser(User currentUser){
-        String whereStatment = null;
+        String whereStatment = "USER_ID = '" + currentUser.getId() + "'";
         String orderStatment = null;
 
 
         if(currentUser.getShowDone() == false) {
-            whereStatment = "USER_ID = '" + currentUser.getId() + "'" + " AND DONE = '0'";
+            whereStatment = whereStatment + "'" + " AND DONE = '0'";
         }
 
         switch(currentUser.getSort()){

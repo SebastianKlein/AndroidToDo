@@ -2,6 +2,7 @@ package com.klein.todo;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.SyncAdapterType;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
@@ -105,7 +106,7 @@ public class AddNoteActivity extends AppCompatActivity {
                     noteList.add(noteEntry);
                 }
                 //Update note
-                else{
+                else {
                     noteEntry.update(
                             etName.getText().toString().trim(),
                             etNote.getText().toString().trim(),
@@ -124,23 +125,29 @@ public class AddNoteActivity extends AppCompatActivity {
         });
     }
 
-    private void selectTime(){
+    private void selectTime() {
         final View dialogView = View.inflate(this, R.layout.activity_date_and_time, null);
         final AlertDialog alertDialog = new AlertDialog.Builder(this).create();
 
-        if(!time.equals("")) {
+        /*
+        //get current time
+        if (noteEntry != null){//(!time.equals("")) {
             DatePicker datePicker = (DatePicker) dialogView.findViewById(R.id.date_picker);
             TimePicker timePicker = (TimePicker) dialogView.findViewById(R.id.time_picker);
 
             Calendar calendar = new GregorianCalendar();
-            calendar.setTimeInMillis(Long.valueOf(noteEntry.getTimestamp()));
+            //calendar.setTimeInMillis(Long.valueOf(noteEntry.getTimestamp())); // causes crash
+
+            calendar.setTimeInMillis(System.currentTimeMillis());
 
 
-            datePicker.updateDate(calendar.YEAR, calendar.MONTH, calendar.DAY_OF_MONTH);
+                    datePicker.updateDate(calendar.YEAR, calendar.MONTH, calendar.DAY_OF_MONTH);
+            long year = Long.valueOf(noteEntry.getTimestamp());
+
             timePicker.setCurrentHour(calendar.HOUR_OF_DAY);
             timePicker.setCurrentMinute(calendar.MINUTE);
         }
-
+*/
         dialogView.findViewById(R.id.date_time_set).setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {

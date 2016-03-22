@@ -50,6 +50,9 @@ public class ToDoListLVAdapter extends ArrayAdapter<Note> {
 
         final Note rowItem = toDoList.get(position);
 
+        if (rowItem == null)
+            return convertView;
+
         //Change Backgroundcolor / Check Timestamp
         if(System.currentTimeMillis() > Long.valueOf(rowItem.getTimestamp()) ) {
             convertView.setBackgroundColor(0x1FFF0000);

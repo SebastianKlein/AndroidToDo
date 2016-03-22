@@ -30,6 +30,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
 
         Intent getIntent = getIntent();
         currentUser = (User) getIntent.getParcelableExtra("CurrentUser");
+        dataSource = new DataSource(this);
 
         etPassword = (EditText) findViewById(R.id.etPassword);
         etNewPassword = (EditText) findViewById(R.id.etNewPassword);
@@ -55,6 +56,7 @@ public class AccountSettingsActivity extends AppCompatActivity {
                     dataSource.open();
                     dataSource.updateUser(currentUser);
                     dataSource.close();
+                    finish();
                 }
             }
         });

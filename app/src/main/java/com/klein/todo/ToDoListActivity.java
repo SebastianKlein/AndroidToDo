@@ -1,5 +1,7 @@
 package com.klein.todo;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
@@ -62,18 +64,17 @@ public class ToDoListActivity extends AppCompatActivity {
         //Logged in?
         if (currentUser == null) {
             startLogin();
-        }
-        else {
+        } else {
             fillToDoList();
         }
     }
 
-    public void startLogin(){
+    public void startLogin() {
         Intent login_Intent = new Intent(this, LoginActivity.class);
         startActivityForResult(login_Intent, AppConstants.RESULT_LOGIN);
     }
 
-    public void fillToDoList(){
+    public void fillToDoList() {
         dataSource.open();
         toDoList = dataSource.getAllNotesFromUserByUser(currentUser);
         dataSource.close();
@@ -82,7 +83,7 @@ public class ToDoListActivity extends AppCompatActivity {
         lvToDoList.setAdapter(lvAdapter);
     }
 
-    public void accountSettings(){
+    public void accountSettings() {
         Intent accountSettings_intent = new Intent(this, AccountSettingsActivity.class);
         accountSettings_intent.putExtra("CurrentUser", currentUser);
         startActivity(accountSettings_intent);
@@ -94,25 +95,35 @@ public class ToDoListActivity extends AppCompatActivity {
         startActivityForResult(addNote_intent, AppConstants.RESULT_ADDNOTE);
     }
 
-    public void deleteAllNotes(){
-        dataSource.open();
-        dataSource.deleteAllNotesFromUser(currentUser);
-        dataSource.close();
+    public void deleteAllNotes() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("Are you sure you want to delete all notes?");
+        builder.setCancelable(false);
+        builder.setPositiveButton("Yes", new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int which) {
+                dataSource.open();
+                dataSource.deleteAllNotesFromUser(currentUser);
+                dataSource.close();
+                fillToDoList();
+            }
+        });
+        builder.setNegativeButton("No", null);
+        builder.show();
     }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        switch(requestCode) {
-            case AppConstants.RESULT_ADDNOTE :
-            case AppConstants.RESULT_ADDUSER :
+        switch (requestCode) {
+            case AppConstants.RESULT_ADDNOTE:
+            case AppConstants.RESULT_ADDUSER:
                 if (resultCode == RESULT_OK) {
                     fillToDoList();
                 }
                 break;
 
             case AppConstants.RESULT_LOGIN:
-                currentUser =  (User) data.getParcelableExtra("CurrentUser");
+                currentUser = (User) data.getParcelableExtra("CurrentUser");
                 fillToDoList();
                 break;
         }
@@ -179,7 +190,7 @@ public class ToDoListActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
 
-        switch(item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.account_settings:
                 accountSettings();
                 return true;
@@ -190,7 +201,6 @@ public class ToDoListActivity extends AppCompatActivity {
 
             case R.id.delete_all:
                 deleteAllNotes();
-                fillToDoList();
                 return true;
 
             case R.id.sortTime:
@@ -219,7 +229,7 @@ public class ToDoListActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
 
-    private void updateUser(){
+    private void updateUser() {
         dataSource.open();
         dataSource.updateUser(currentUser);
         dataSource.close();
